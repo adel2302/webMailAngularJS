@@ -16,17 +16,29 @@
       <table class="table table-striped table-hover spacer">
         <thead>
           <tr>
-            <th>De</th>
-            <th>&Agrave;</th>
-            <th>Objet</th>
-            <th>Dates</th>
+            <th>
+              <a ng-click="triEmails('from')">De</a>
+              <span class ="hSpacer" ng-class= "cssChevronTri('from')"></span>
+            </th>
+            <th>
+              <a ng-click="triEmails('to')">&Agrave;</a>
+              <span class ="hSpacer" ng-class= "cssChevronTri('to')"></span>
+            </th>
+            <th>
+              <a ng-click="triEmails('subject')">Objet</a>
+              <span class ="hSpacer" ng-class= "cssChevronTri('subject')"></span>
+            </th>
+            <th>
+              <a ng-click="triEmails('date')">Date</a>
+              <span class ="hSpacer" ng-class= "cssChevronTri('date')"></span>
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="email in dossierCourant.emails" class="clikable" ng-click="versEmail(dossierCourant, email)">
+          <tr ng-repeat="email in dossierCourant.emails | orderBy: champTri:triDescendant" class="clickable" ng-click="versEmail(dossierCourant, email)">
             <td>{{email.from}}</td>
             <td>{{email.to}}</td>
-            <td>{{email.subjet}}</td>
+            <td>{{email.subject}}</td>
             <td>{{email.date}}</td>
           </tr>
         </tbody>

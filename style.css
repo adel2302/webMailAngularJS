@@ -11,3 +11,11 @@ a {
   background-color: #428bca;
   color: #ffffff;
 }
+
+.hSpacer {
+  margin-left: 20px;
+}
+
+.clickable {
+  cursor: pointer;
+}
