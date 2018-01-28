@@ -1,6 +1,6 @@
 angular
   .module('Webmail', ['ngSanitize'])
-  .controller('WebmailCtrl', function($scope) {
+  .controller('WebmailCtrl', function($scope, $location) {
     $scope.dossiers = [
       {
         value: 'RECEPTION',
@@ -137,4 +137,33 @@ angular
     $scope.selectionEmail = function(email) {
       $scope.emailSelectionner = email;
     };
+
+    $scope.versEmail = function(dossier, email) {
+      $location.path('/' + dossier.value + '/' + email.id);
+    };
+
+    $scope.$watch(
+      function() {
+        return $location.path();
+      },
+      function(newPath) {
+        var tabPath = newPath.split('/');
+        if (tabPath.length > 1) {
+          var valDossier = tabPath[1];
+          $scope.dossiers.forEach(function(item) {
+            if (item.value == valDossier) {
+              $scope.selectionDossier(item);
+            }
+          });
+          if (tabPath.length > 2) {
+            var idMail = tabPath[2];
+            $scope.dossierCourant.emails.forEach(function(mail) {
+              if (mail.id == idMail) {
+                $scope.selectionEmail(mail);
+              }
+            });
+          }
+        }
+      }
+    );
   });
