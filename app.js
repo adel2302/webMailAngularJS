@@ -165,6 +165,12 @@ angular
       };
     };
 
+    //Recherche
+    $scope.recherche = null;
+    $scope.razRecherche = function() {
+      $scope.recherche = null;
+    };
+
     $scope.$watch(
       function() {
         return $location.path();

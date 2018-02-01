@@ -12,7 +12,19 @@
       <li ng-repeat= "dossier in dossiers" ng-class="{ active: dossier == dossierCourant}">
         <a href="#{{dossier.value}}">{{dossier.label}}</a></li>
     </ul>
+
     <div ng-show="dossierCourant != null &amp;&amp; emailSelectionner == null">
+      <div class="spacer input-group">
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-search"></span>
+        </div>
+        <input type="text" ng-model="recherche" class="form-control" placeholder="Rechercher un e-mail...">
+        <div class="input-group-btn">
+          <button class="btn btn-default" ng-click="razRecherche()">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
+      </div>
       <table class="table table-striped table-hover spacer">
         <thead>
           <tr>
@@ -35,7 +47,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="email in dossierCourant.emails | orderBy: champTri:triDescendant" class="clickable" ng-click="versEmail(dossierCourant, email)">
+          <tr ng-repeat="email in emailsFiltres = (dossierCourant.emails |filter:recherche) | orderBy:champTri:triDescendant" class="clickable" ng-click="versEmail(dossierCourant, email)">
             <td>{{email.from}}</td>
             <td>{{email.to}}</td>
             <td>{{email.subject}}</td>
@@ -43,13 +55,13 @@
           </tr>
         </tbody>
       </table>
-      <p class="alert alert-info">Le dossier contient {{dossierCourant.emails.length}} mails</p>
+      <p class="alert alert-info">Le dossier contient {{emailsFiltres.length}} mails</p>
     </div>
     <div class="well spacer" ng-show="emailSelectionner != null">
       <h1>{{emailSelectionner.subject}}</h1>
       <p><label>De:</label><span>{{emailSelectionner.from}}</span></p>
       <p><label>&Agrave;</label><span>{{emailSelectionner.to}}</span></p>
-      <p><label>Date:</label><span>{{emailSelectionner.date}}</span></p>
+      <p><label>Date:</label><span>{{emailSelectionner.date | date: 'dd/MM/yyyy'}}</span></p>
       <p ng-bind-html="emailSelectionner.content"></p>
     </div>
   </div>
