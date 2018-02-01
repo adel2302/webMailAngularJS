@@ -19,3 +19,7 @@ a {
 .clickable {
   cursor: pointer;
 }
+
+.surbrillanceRecherche {
+  background-color: #ffd42a;
+}
